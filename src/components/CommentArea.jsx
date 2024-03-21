@@ -34,33 +34,31 @@ const CommentArea = (props) => {
   //     this.setState({ isLoading: false, isError: true })
   //   }
   // }
-
-  useEffect(() => {
-    const fetchComments = async () => {
-      setIsLoading(true);
-      try {
-        let response = await fetch("https://striveschool-api.herokuapp.com/api/comments/" + props.asin, {
-          headers: {
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWUxOWY3YTRjNTllYzAwMTk5MGQ3MDUiLCJpYXQiOjE3MTA4NjE4MjQsImV4cCI6MTcxMjA3MTQyNH0.HC1wgDW-xZtfNUyjpJf3LgFCJZgQsgcPfH1e5K4czIY",
-          },
-        });
-        console.log(response);
-        if (response.ok) {
-          let comments = await response.json();
-          setComments(comments);
-          setIsLoading(false);
-          setIsError(false);
-        } else {
-          setIsLoading(false);
-          setIsError(true);
-        }
-      } catch (error) {
-        console.log(error);
+  const fetchComments = async () => {
+    setIsLoading(true);
+    try {
+      let response = await fetch("https://striveschool-api.herokuapp.com/api/comments/" + props.asin, {
+        headers: {
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWUxOWY3YTRjNTllYzAwMTk5MGQ3MDUiLCJpYXQiOjE3MTA4NjE4MjQsImV4cCI6MTcxMjA3MTQyNH0.HC1wgDW-xZtfNUyjpJf3LgFCJZgQsgcPfH1e5K4czIY",
+        },
+      });
+      if (response.ok) {
+        let comments = await response.json();
+        setComments(comments);
+        setIsLoading(false);
+        setIsError(false);
+      } else {
         setIsLoading(false);
         setIsError(true);
       }
-    };
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+      setIsError(true);
+    }
+  };
+  useEffect(() => {
     fetchComments();
   }, [props.asin]);
 

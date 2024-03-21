@@ -1,16 +1,15 @@
 import { Card } from "react-bootstrap";
-// import CommentArea from './CommentArea'
+import { useState, useEffect } from "react";
+// import CommentArea from "./CommentArea";
 
 const SingleBook = (props) => {
-  // state = {
-  //   selected: false,
-  // }
-
   return (
     <>
       <Card
         // onClick={() => this.setState({ selected: !this.state.selected })}
-        onClick={() => props.changeSelectedBook(props.book.asin)}
+        onClick={() => {
+          props.changeSelectedBook(props.book.asin);
+        }}
         style={{
           border: props.selectedBook === props.book.asin ? "3px solid red" : "none",
         }}
